@@ -57,6 +57,8 @@ Vagrant.configure("2") do |config|
     config.vm.network :forwarded_port, guest: 10581, host: 10581, protocol: "udp", auto_correct: true
 
     # SSH
+    config.vm.network :forwarded_port, guest: 22, host: 2222, protocol: "tcp", auto_correct: true, disabled: true
+    config.vm.network :forwarded_port, guest: 22, host: 2222, protocol: "udp", auto_correct: true, disabled: true
     config.vm.network :forwarded_port, guest: 22, host: 2223, protocol: "tcp", auto_correct: true
     config.vm.network :forwarded_port, guest: 22, host: 2223, protocol: "udp", auto_correct: true
 
