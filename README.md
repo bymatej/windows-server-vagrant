@@ -1,6 +1,6 @@
 # windows-server-vagrant
 Based on this box: https://app.vagrantup.com/gusztavvargadr/boxes/windows-server
-Windows server 2019 box for Vagrant (with all ports open from guest to host). This may be very insecure. I use it on my Linux server to spin it up on demand and run Windows game servers on it.
+Windows server 2019 box for Vagrant (with some ports open from guest to host). This may be very insecure, as I specified the ports I personally needed. Change the port forwarding to your liking. I use it on my Linux server to spin it up on demand and run Windows game servers on it.
 
 # Prerequisites
 ## Info
@@ -43,12 +43,13 @@ For Ubuntu (Debian):
 ## Tehcnical details
 Operating system is **Windows Server 2019 v1809.0.2003**
 
-The machine has 2 GB of RAM and 2 CPUs allocated. Hard disk drive size is 40 GB, but it is dynamically allocated.
+The machine has 2 GB of RAM and 2 CPUs allocated. Hard disk drive size is 130 GB, but it is dynamically allocated.
 
 Network:
 - The forwarded_port network type was used
-- All TCP and UDP ports are forwarded from guest to host
-- Ths may be very insecure.
+- Some TCP and UDP ports are forwarded from guest to host
+- Ths may be very insecure (I used the ports that I personally needed)
+- See the Vagrantfile for details
 
 Users and RDP:
 - RDP is activated
