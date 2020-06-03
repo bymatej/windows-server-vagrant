@@ -1,7 +1,6 @@
 # windows-server-vagrant
 Based on this box: https://app.vagrantup.com/gusztavvargadr/boxes/windows-server
-
-Windows server 2019 box for Vagrant (with some ports open from guest to host). This may be very insecure, as I specified the ports I personally needed. Change the port forwarding to your liking. I use it on my personal Linux server to spin it up on demand and run dedicated game servers on it.
+Windows server 2019 box for Vagrant (with some ports open from guest to host). This may be very insecure, as I specified the ports I personally needed. Change the port forwarding to your liking. I use it on my Linux server to spin it up on demand and run Windows game servers on it.
 
 # Prerequisites
 ## Info
@@ -40,8 +39,7 @@ For Ubuntu (Debian):
 - `vagrant plugin install vagrant-disksize`
 - `vagrant plugin install vagrant-vbguest`
 
-# Running and stopping the machines
-## Tehcnical details
+# VM Tehcnical details
 Operating system is **Windows Server 2019 v1809.0.2003**
 
 The machine has 2 GB of RAM and 2 CPUs allocated. Hard disk drive size is 130 GB, but it is dynamically allocated.
@@ -66,6 +64,8 @@ Due to that, I disabled the sound again. See _Steps after vagrant up_ for more d
 
 Gui:
 - disabled
+
+# Running and stopping the machines
 
 ## Run commands
 To setup and run the Guest machines run this command:
