@@ -57,6 +57,10 @@ Users and RDP:
 - Password: `vagrant`
 
 Sound:
+At first I disabled the sound. Then I realized that some software (mainly games) won't start properly without sound card drivers.
+Then I tried installing a sound card, but I kept failing. Windows was picking some unknown media device, but I could not find drivers for it.
+Then I stumbled upon a dummy audio device that tricks Windows into thinking it has a proper sound card. All software started properly with that driver.
+Due to that, I disabled the sound again. See _Steps after vagrant up_ for more details on how to install those drivers.
 - disabled
 
 Gui:
@@ -79,3 +83,23 @@ To forcefully power off the machine add the `-f` or `--force` argument to the ha
 ## Destroy commands
 To destroy the machines use:
 `vagrant destroy`
+
+# Steps after vagrant up
+Some software, mainly games, requires a proper sound card drivers. They won't start without them.
+I tried configuring a proper audio device in Vagrantfile, but I failed. So I provided a dummy drivers that can be installed after VM is up and running.
+In provisioning step I included a zip file that has dummy drivers.
+If you want to install a dummy sound card follow these steps.
+To learn more about dummy driver used, check it out here: https://www.vb-audio.com/Cable/
+
+## Installation of dummy drivers
+Connect to your VM via RDP.
+
+Installation files are in `C:\Users\vagrant\Desktop\vbcable.zip`.
+
+Extract it and run `VBCABLE_Setup_x64.exe`. Click on `Install driver` and click again on `Install` in the prompt box.
+
+Then, reboot your VM. That's it.
+
+
+## Install your software
+Now you can install your software, games, etc.

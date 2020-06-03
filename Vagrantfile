@@ -14,18 +14,36 @@ Vagrant.configure("2") do |config|
       vb.name = "Windows Server 2019 by Matej"
 
       # Display the VirtualBox GUI when booting the machine
-      vb.gui = false
+      vb.gui = true
 
       # Customize the resources on the VM (RAM and CPUs):
       vb.memory = "2048"
       vb.cpus = 2
+      # If guest VM uses 100% of its CPU, only 80% of host's CPU is used
+      vb.customize ["modifyvm", :id, "--cpuexecutioncap", "80"]
 
-      # Disable sound
+      # Enable sound (some games require soundcard and drivers)
+      # This heavily depends on the host! Read more here:
+      #   - https://github.com/paulsturgess/mopidy-vagrant/issues/3#issuecomment-36438930
+      #   - https://github.com/srvk/eesen-transcriber/issues/1#issuecomment-152680334
+      #   - https://www.virtualbox.org/manual/ch08.html#vboxmanage-cmd-overview
+      #vb.customize ["modifyvm", :id, "--audio", "pulse"]
+      #vb.customize ["modifyvm", :id, "--audiocontroller", "ac97"]
+      ##vb.customize ["modifyvm", :id, "--audiocodec", "sb16"]
+      #vb.customize ["modifyvm", :id, "--audioin", "off"]
+      #vb.customize ["modifyvm", :id, "--audioout", "on"]
+
+      # Disable sound - dummy soundcard will be used - see provisioning
       vb.customize ["modifyvm", :id, "--audio", "none"]
+
     end
 
     # Run initial configuration
     windowsserver.vm.provision :shell, path: "./provisioning/init.ps1"
+
+    # ADD VIRTUAL AUDIO CABLE SOFTWARE - A DUMMY SOUNDCARD AS SOME GAMES REQUIRE SOUNDCARD DRIVERS TO workspace
+    ## Downloaded from: https://www.vb-audio.com/Cable/
+    windowsserver.vm.provision "file", source: "./provisioning/vbcable.zip", destination: "C:\\Users\\vagrant\\Desktop"
 
     # Network setup
     # Forwarding range of guest TCP and UDP to host, or single ports
