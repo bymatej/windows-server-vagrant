@@ -33,9 +33,6 @@ Vagrant.configure("2") do |config|
       #vb.customize ["modifyvm", :id, "--audioin", "off"]
       #vb.customize ["modifyvm", :id, "--audioout", "on"]
 
-      # Disable sound - dummy soundcard will be used - see provisioning
-      vb.customize ["modifyvm", :id, "--audio", "none"]
-
     end
 
     # Run initial configuration

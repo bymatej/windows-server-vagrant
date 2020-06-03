@@ -56,12 +56,12 @@ Users and RDP:
 - Password: `vagrant`
 
 Sound:
-- disabled
+- enabled, but not working until dummy drivers are installed
 
 At first I disabled the sound. Then I realized that some software (mainly games) won't start properly without sound card drivers.
 Then I tried installing a sound card, but I kept failing. Windows was picking some unknown media device, but I could not find drivers for it.
 Then I stumbled upon a dummy audio device that tricks Windows into thinking it has a proper sound card. All software started properly with that driver.
-Due to that, I disabled the sound again. See _Steps after vagrant up_ for more details on how to install those drivers.
+See _Steps after vagrant up_ for more details on how to install those drivers.
 
 Gui:
 - disabled
