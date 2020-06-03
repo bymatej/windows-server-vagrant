@@ -13,8 +13,8 @@ Vagrant.configure("2") do |config|
       # Set name
       vb.name = "Windows Server 2019 by Matej"
 
-      # Display the VirtualBox GUI when booting the machine
-      vb.gui = true
+      # Do not display the VirtualBox GUI when booting the machine
+      vb.gui = false
 
       # Customize the resources on the VM (RAM and CPUs):
       vb.memory = "2048"
