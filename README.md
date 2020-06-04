@@ -94,7 +94,9 @@ If you want to install a dummy sound card follow these steps.
 To learn more about dummy driver used, check it out here: https://www.vb-audio.com/Cable/
 
 ## Installation of dummy drivers
-Connect to your VM via RDP.
+Connect to your VM via RDP. 
+
+**IMPORTANT** -> Connect to the remote PC over RDP and **check the audio option to play the sound on the remote machine**! This is very important, as the below installation of the dummy driver won't work. Do this on all RDP cliets you use. If the dummy driver does not work, your PC will complain about not having a sound driver and sound card, and your some of your sofware depending on the sound card will not start!
 
 Installation files are in `C:\Users\vagrant\Desktop\vbcable.zip`.
 

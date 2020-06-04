@@ -27,11 +27,11 @@ Vagrant.configure("2") do |config|
       #   - https://github.com/paulsturgess/mopidy-vagrant/issues/3#issuecomment-36438930
       #   - https://github.com/srvk/eesen-transcriber/issues/1#issuecomment-152680334
       #   - https://www.virtualbox.org/manual/ch08.html#vboxmanage-cmd-overview
-      #vb.customize ["modifyvm", :id, "--audio", "pulse"]
-      #vb.customize ["modifyvm", :id, "--audiocontroller", "ac97"]
-      ##vb.customize ["modifyvm", :id, "--audiocodec", "sb16"]
-      #vb.customize ["modifyvm", :id, "--audioin", "off"]
-      #vb.customize ["modifyvm", :id, "--audioout", "on"]
+      vb.customize ["modifyvm", :id, "--audio", "null"]
+      vb.customize ["modifyvm", :id, "--audiocontroller", "ac97"]
+      #vb.customize ["modifyvm", :id, "--audiocodec", "sb16"]
+      vb.customize ["modifyvm", :id, "--audioin", "off"]
+      vb.customize ["modifyvm", :id, "--audioout", "on"]
 
     end
 
