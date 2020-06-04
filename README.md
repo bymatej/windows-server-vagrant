@@ -107,3 +107,7 @@ Then, reboot your VM. That's it.
 
 ## Install your software
 Now you can install your software, games, etc.
+
+I tipically install an Edge browser, and download my games from my private repo.
+
+If needed (for older games/software), install Direct Play by going into Control Panel -> Install Windows Features On or Off (the server manager) -> Add roles and features -> Click Next until you get to the Features tab -> tick Direct Play and then Next and Finish.
