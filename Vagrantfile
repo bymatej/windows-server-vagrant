@@ -30,7 +30,7 @@ Vagrant.configure("2") do |config|
       vb.customize ["modifyvm", :id, "--audio", "null"]
       vb.customize ["modifyvm", :id, "--audiocontroller", "ac97"]
       #vb.customize ["modifyvm", :id, "--audiocodec", "sb16"]
-      vb.customize ["modifyvm", :id, "--audioin", "off"]
+      vb.customize ["modifyvm", :id, "--audioin", "on"]
       vb.customize ["modifyvm", :id, "--audioout", "on"]
 
     end
