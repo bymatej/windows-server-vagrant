@@ -33,6 +33,12 @@ Vagrant.configure("2") do |config|
       vb.customize ["modifyvm", :id, "--audioin", "on"]
       vb.customize ["modifyvm", :id, "--audioout", "on"]
 
+      # Set vram
+      vb.customize ["modifyvm", :id, "--vram", "32"]
+
+      # Set graphics
+      vb.customize ["modifyvm", :id, "--graphicscontroller", "VBoxSVGA"]
+
     end
 
     # Run initial configuration
