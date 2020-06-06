@@ -8,6 +8,23 @@ To install this box you need vagrant and virtualbox installed on your machine. A
 
 After that, a simple `vagrant up` command is sufficient to get it up and running. You can see GUI only if you connect through RDP.
 
+**Note: ** If you have a "GUI-less" server, like me, make sure you install ALSA (alsa utilities, actually) and add your username (used for `vagrant up` command) and add it to the `audio` group. You don't need this if you have, for example, an Ubuntu Desktop installation.
+
+`sudo apt update`
+
+`sudo apt install alsa-utils`
+
+`sudo usermod -aG audio your_username`
+
+You also might want to unmute your devices using `alsamixer` command.
+
+More info on unmuting: http://howto.blbosti.com/2010/03/ubuntu-server-install-alsa-sound-and-moc-music-on-console/
+
+More info on adding to group: https://askubuntu.com/a/27658
+
+More info about my Ubuntu server: https://bymatej.com/how-to-install-and-set-up-ubuntu-server-18-04-for-domestic-usage/
+
+
 ## Install Vagrant and Virtual Box
 ### Windows (and other platforms)
 Go to https://www.vagrantup.com/downloads.html and download Vagrant for your platform. Follow the installation instructions.
@@ -96,7 +113,11 @@ To learn more about dummy driver used, check it out here: https://www.vb-audio.c
 ## Installation of dummy drivers
 Connect to your VM via RDP. 
 
-**IMPORTANT** -> Connect to the remote PC over RDP and **check the audio option to play the sound on the remote machine**! This is very important, as the below installation of the dummy driver won't work. Do this on all RDP cliets you use. If the dummy driver does not work, your PC will complain about not having a sound driver and sound card, and your some of your sofware depending on the sound card will not start!
+**Note: ** Connect to the remote PC over RDP and **check the audio option to play the sound on the remote machine**! 
+If you don't have proper soundcard, you can install a dummy. 
+Below is the location of installation for the dummy driver. 
+If you need sound, then do this on all RDP cliets you use. 
+Without the soundcard (dummy, or real one), your PC will complain about not having a sound driver and sound card, and your some of your sofware may not run.
 
 Installation files are in `C:\Users\vagrant\Desktop\vbcable.zip`.
 
@@ -104,10 +125,23 @@ Extract it and run `VBCABLE_Setup_x64.exe`. Click on `Install driver` and click 
 
 Then, reboot your VM. That's it.
 
+You don't need this in most cases. I needed it at firs on my headless server with no audio configured.
+
 
 ## Install your software
+Before installing anything, install Team Viewer. Connect via RDP, open Internet Explorer (yes, that old thing), and download team viewer. Acually, any VNC tool will suffice. I prefer Team Viewer.
+
+This is needed because if you want to run a dedicated game server on this machine, you cannot do this via RDP. RDP cannot run directx. There are some limitations due to bandwith, or something like that. I don't know exactly, all I know it is not possible. 
+
+So, you either need to have a GUI for your VM (which I don't), or you need a VNC (like Team Viewer).
+
+
 Now you can install your software, games, etc.
 
 I tipically install an Edge browser, and download my games from my private repo.
 
-If needed (for older games/software), install Direct Play by going into Control Panel -> Install Windows Features On or Off (the server manager) -> Add roles and features -> Click Next until you get to the Features tab -> tick Direct Play and then Next and Finish.
+If needed (for older games/software), install Direct Play by going into Control Panel -> Install Windows Features On or Off (the server manager) -> Add roles and features -> Click Next until you get to the Features tab -> tick Direct Play and then Next and Finish. Same goes if you need .NET 3.5 or older.
+
+
+
+# CHEERS!
