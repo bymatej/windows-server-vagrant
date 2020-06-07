@@ -140,7 +140,15 @@ Now you can install your software, games, etc.
 
 I tipically install an Edge browser, and download my games from my private repo.
 
+## Additional software and tweaks
+
 If needed (for older games/software), install Direct Play by going into Control Panel -> Install Windows Features On or Off (the server manager) -> Add roles and features -> Click Next until you get to the Features tab -> tick Direct Play and then Next and Finish. Same goes if you need .NET 3.5 or older.
+
+Some apps were crashing on start due to error code 0xc0000005. Adding the software to DEP exception fixed the issue. DEP is data execution prevention, and it is enabled for all apps on Windows server. I added my game as an exception in System settings -> Advanced tab -> Performance -> DEP. System settings is accessible by right clicking on This Pc and selecting properties.
+
+Source: https://www.stellarinfo.com/blog/how-to-fix-error-code-0xc0000005-in-windows/
+
+
 
 
 
