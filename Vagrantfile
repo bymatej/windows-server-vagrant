@@ -27,16 +27,18 @@ Vagrant.configure("2") do |config|
       #   - https://github.com/paulsturgess/mopidy-vagrant/issues/3#issuecomment-36438930
       #   - https://github.com/srvk/eesen-transcriber/issues/1#issuecomment-152680334
       #   - https://www.virtualbox.org/manual/ch08.html#vboxmanage-cmd-overview
-      vb.customize ["modifyvm", :id, "--audio", "null"]
-      vb.customize ["modifyvm", :id, "--audiocontroller", "ac97"]
-      #vb.customize ["modifyvm", :id, "--audiocodec", "sb16"]
-      vb.customize ["modifyvm", :id, "--audioin", "on"]
-      vb.customize ["modifyvm", :id, "--audioout", "on"]
+      # I disabled it because I did not need it
+      vb.customize ["modifyvm", :id, "--audio", "none"]
+      # Here is an example if you do need sound:
+      #vb.customize ["modifyvm", :id, "--audio", "null"]
+      #vb.customize ["modifyvm", :id, "--audiocontroller", "ac97"]
+      ##vb.customize ["modifyvm", :id, "--audiocodec", "sb16"]
+      #vb.customize ["modifyvm", :id, "--audioin", "on"]
+      #vb.customize ["modifyvm", :id, "--audioout", "on"]
 
       # Set vram
-      vb.customize ["modifyvm", :id, "--vram", "32"]
-
-      # Set graphics
+      vb.customize ["modifyvm", :id, "--vram", "16"]
+      # Set graphics controller
       vb.customize ["modifyvm", :id, "--graphicscontroller", "VBoxSVGA"]
 
     end
@@ -44,11 +46,23 @@ Vagrant.configure("2") do |config|
     # Run initial configuration
     windowsserver.vm.provision :shell, path: "./provisioning/init.ps1"
 
-    # ADD VIRTUAL AUDIO CABLE SOFTWARE - A DUMMY SOUNDCARD AS SOME GAMES REQUIRE SOUNDCARD DRIVERS TO workspace
+    # ADD VIRTUAL AUDIO CABLE SOFTWARE - A DUMMY SOUNDCARD AS SOME APPS REQUIRE SOUNDCARD DRIVERS TO workspace
     ## Downloaded from: https://www.vb-audio.com/Cable/
     windowsserver.vm.provision "file", source: "./provisioning/vbcable.zip", destination: "C:\\Users\\vagrant\\Desktop"
 
     # Network setup
+    # Create bridge network to my ethernet adapter of my host, and add ip 192.168.1.199, mask 255.255.255.0, gateway 192.168.1.1, dns1 8.8.8.8, dns2 8.8.4.4
+    config.vm.network "public_network", ip: "192.168.1.199", bridge: "enp4s0"
+    config.vm.provision "shell",
+      run: "always",
+      inline: "netsh interface ip set address \"Ethernet 2\" static 192.168.1.199 255.255.255.0 192.168.1.1"
+    config.vm.provision "shell",
+      run: "always",
+      inline: "netsh interface ip add dns \"Ethernet 2\" 8.8.8.8"
+    config.vm.provision "shell",
+      run: "always",
+      inline: "netsh interface ip add dns \"Ethernet 2\" 8.8.4.4 index=2"
+
     # Forwarding range of guest TCP and UDP to host, or single ports
     # RDP
     config.vm.network :forwarded_port, guest: 3389, host: 3389, protocol: "tcp", auto_correct: true
@@ -72,10 +86,10 @@ Vagrant.configure("2") do |config|
     config.vm.network :forwarded_port, guest: 19967, host: 19967, protocol: "udp", auto_correct: true
 
     # S.W.A.T. 4
-    config.vm.network :forwarded_port, guest: 10480, host: 10480, protocol: "tcp", auto_correct: true
-    config.vm.network :forwarded_port, guest: 10480, host: 10480, protocol: "udp", auto_correct: true
-    config.vm.network :forwarded_port, guest: 10581, host: 10581, protocol: "tcp", auto_correct: true
-    config.vm.network :forwarded_port, guest: 10581, host: 10581, protocol: "udp", auto_correct: true
+    for i in 10480..10581
+      config.vm.network :forwarded_port, guest: i, host: i, protocol: "tcp", auto_correct: true
+      config.vm.network :forwarded_port, guest: i, host: i, protocol: "udp", auto_correct: true
+    end
 
     # SSH
     config.vm.network :forwarded_port, guest: 22, host: 2222, protocol: "tcp", auto_correct: true, disabled: true
